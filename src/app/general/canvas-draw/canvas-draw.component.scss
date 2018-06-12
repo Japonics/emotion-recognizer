@@ -1,0 +1,47 @@
+@import "../../colors";
+
+:host {
+  display: flex;
+  width: 400px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    .canvas-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-size: 13px;
+        color: $main-color;
+        width: 100%;
+        text-align: left;
+        padding-bottom: 5px;
+      }
+    }
+    .emotion-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border: 1px solid $main-color-transparent;
+      margin-top: 20px;
+      .emotion {
+        transition: border-color ease-in 0.3s;
+        border: 3px solid transparent;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        border-radius: 100%;
+        padding: 3px;
+        &:hover {
+          border: 3px solid $main-color-transparent;
+        }
+        &.active {
+          border: 3px solid $main-color;
+        }
+      }
+    }
+  }
+}

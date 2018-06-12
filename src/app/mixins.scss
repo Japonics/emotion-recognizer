@@ -1,0 +1,28 @@
+@import "colors";
+
+@mixin button-std {
+  transition: all ease-in 0.4s;
+  font-family: Quicksand, sans-serif;
+  width: 100%;
+  display: block;
+  height: 35px;
+  line-height: 35px;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #FFFFFF;
+  text-align: center;
+  background-color: $main-color;
+  border: none;
+
+  &:hover {
+    background-color: $main-color-transparent;
+  }
+}
+
+@mixin header($font-size: 60px) {
+  font-size: $font-size;
+  color: #9f0202;
+  width: 100%;
+  margin-bottom: 50px;
+}

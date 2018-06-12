@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="canvas-container">
+    <p class="info">Narysuj emocje: </p>
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </div>
+  <div class="emotion-container">
+    <div class="emotion" (click)="selectEmotion(emotions.smile)" [ngClass]="{'active': currentEmotion.name === emotions.smile.name}">
+      <img src="../../../assets/emotions/smile.svg"/>
+    </div>
+    <div class="emotion" (click)="selectEmotion(emotions.shocked)" [ngClass]="{'active': currentEmotion.name === emotions.shocked.name}">
+      <img src="../../../assets/emotions/shocked.svg"/>
+    </div>
+    <div class="emotion" (click)="selectEmotion(emotions.sad)" [ngClass]="{'active': currentEmotion.name === emotions.sad.name}">
+      <img src="../../../assets/emotions/sad.svg"/>
+    </div>
+    <div class="emotion" (click)="selectEmotion(emotions.sceptic)" [ngClass]="{'active': currentEmotion.name === emotions.sceptic.name}">
+      <img src="../../../assets/emotions/sceptic.svg"/>
+    </div>
+  </div>
+</div>

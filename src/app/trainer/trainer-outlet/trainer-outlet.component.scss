@@ -1,0 +1,108 @@
+@import "../../mixins";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  .title {
+    width: 100%;
+    text-align: center;
+    h1 {
+      @include header(40px);
+      font-size: 40px;
+    }
+  }
+  .container {
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    padding-bottom: 20px;
+    .panel {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      .list-container {
+        width: 100%;
+        height: 100%;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        .list {
+          display: flex;
+          flex-direction: column;
+          background-color: transparentize(#000, 0.6);
+          height: 100%;
+          .header {
+            background-color: $main-color;
+            color: #fff;
+            display: flex;
+          }
+          .body {
+            flex-grow: 1;
+            overflow-y: auto;
+            .row {
+              &:hover {
+                background-color: $main-color-transparent;
+              }
+              span {
+                &:last-child {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
+            }
+          }
+          .header,
+          .body .row {
+            display: flex;
+            height: 30px;
+            span {
+              color: #fff;
+              line-height: 30px;
+              cursor: default;
+              &:first-child {
+                width: 40%;
+                padding-left: 10px;
+              }
+              &:nth-child(2) {
+                width: 40%;
+                padding-left: 10px;
+              }
+              &:last-child {
+                width: 20%;
+                text-align: center;
+                cursor: pointer;
+                img {
+                  width: 20px;
+                  height: 20px;
+                }
+              }
+            }
+          }
+        }
+        .save-container {
+          padding: 10px 30px;
+          button {
+            @include button-std();
+          }
+        }
+      }
+    }
+  }
+  .buttons-container {
+    display: flex;
+    .button {
+      display: flex;
+      width: 50%;
+      justify-content: center;
+      padding: 0 30px;
+      .btn {
+        @include button-std();
+      }
+    }
+  }
+}

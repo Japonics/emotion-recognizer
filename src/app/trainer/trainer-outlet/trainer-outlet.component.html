@@ -1,0 +1,49 @@
+<div class="title">
+  <h1>Trener</h1>
+</div>
+<div class="container">
+  <div class="panel">
+    <app-canvas-draw
+      [clear]="triggerClear"
+      [save]="triggerSave"
+      (onSave)="saveData($event)">
+    </app-canvas-draw>
+  </div>
+  <div class="panel">
+    <div class="list-container">
+      <div class="list">
+        <div class="header">
+          <span>Nazwa emocji</span>
+          <span>Wartość wyjścia</span>
+          <span>Usuń</span>
+        </div>
+        <div class="body">
+          <div class="row" *ngFor="let record of dataRecords; let i = index">
+            <span>{{record.name}}</span>
+            <span>{{record.value}}</span>
+            <span>
+              <img (click)="deleteRecord(i)" src="../../../assets/images/delete.svg"/>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="save-container">
+        <button>
+          Zapisz dane do pliku
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="buttons-container">
+  <div class="button">
+    <button class="btn" (click)="emitSave()">
+      Zapisz
+    </button>
+  </div>
+  <div class="button">
+    <button class="btn" (click)="clearCanvas()">
+      Wyczyść płótno
+    </button>
+  </div>
+</div>
