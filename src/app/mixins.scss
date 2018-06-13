@@ -26,3 +26,23 @@
   width: 100%;
   margin-bottom: 50px;
 }
+
+@mixin nav() {
+  .return,
+  .next {
+    position: fixed;
+    top: 20px;
+    color: $main-color;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .return {
+    left: 20px;
+  }
+  .next {
+    right: 20px;
+  }
+}

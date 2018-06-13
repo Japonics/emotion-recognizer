@@ -1,9 +1,9 @@
 <div class="container">
   <div class="canvas-container">
     <p class="info">Narysuj emocje: </p>
-    <canvas id="canvas" width="300" height="300"></canvas>
+    <canvas id="canvas" width="200" height="200"></canvas>
   </div>
-  <div class="emotion-container">
+  <div class="emotion-container" *ngIf="!simpleDraw">
     <div class="emotion" (click)="selectEmotion(emotions.smile)" [ngClass]="{'active': currentEmotion.name === emotions.smile.name}">
       <img src="../../../assets/emotions/smile.svg"/>
     </div>
@@ -17,4 +17,7 @@
       <img src="../../../assets/emotions/sceptic.svg"/>
     </div>
   </div>
+  <p class="loader" *ngIf="isLoading">
+    Trwa przetwarzanie...
+  </p>
 </div>

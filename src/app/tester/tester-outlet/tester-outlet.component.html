@@ -1,0 +1,43 @@
+<p class="return" [routerLink]="['']">
+  Menu
+</p>
+<p class="next" [routerLink]="['/trainig']">
+  Trening
+</p>
+<div class="title">
+  <h1>Rozpoznawanie</h1>
+</div>
+<div class="container">
+  <div class="panel">
+    <app-canvas-draw
+      [clear]="triggerClear"
+      [save]="triggerSave"
+      [simpleDraw]="true"
+      (onSave)="saveData($event)">
+    </app-canvas-draw>
+  </div>
+  <div class="panel">
+    <div class="list-container">
+      <div class="save-container">
+        <button (click)="saveInFile()">
+          Wczytaj dane z pliku
+        </button>
+        <button (click)="saveTemporary()">
+          Wczytaj dane tymczasowe
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="buttons-container">
+  <div class="button">
+    <button class="btn" (click)="emitSave()">
+      Zapisz
+    </button>
+  </div>
+  <div class="button">
+    <button class="btn" (click)="clearCanvas()">
+      Wyczyść płótno
+    </button>
+  </div>
+</div>

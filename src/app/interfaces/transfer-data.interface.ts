@@ -1,5 +1,5 @@
 export interface ITransferData {
-  binary: number;
+  binary: string;
   value: number;
   name: string;
 }

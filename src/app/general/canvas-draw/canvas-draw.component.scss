@@ -8,16 +8,15 @@
     flex-direction: column;
     .canvas-container {
       width: 100%;
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      p {
+      .info {
         font-size: 13px;
         color: $main-color;
         width: 100%;
-        text-align: left;
+        text-align: center;
         padding-bottom: 5px;
       }
     }
@@ -42,6 +41,13 @@
           border: 3px solid $main-color;
         }
       }
+    }
+    .loader {
+      color: $main-color;
+      width: 100%;
+      text-align: center;
+      font-size: 20px;
+      margin-top: 10px;
     }
   }
 }

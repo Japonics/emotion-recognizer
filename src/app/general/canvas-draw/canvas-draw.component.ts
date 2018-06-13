@@ -11,6 +11,7 @@ import {EMOTIONS} from '../../types/emotions.types';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
 import {ITransferData} from '../../interfaces/transfer-data.interface';
+import {WebWorkerService} from 'angular2-web-worker';
 
 @Component({
   selector: 'app-canvas-draw',
@@ -21,10 +22,12 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() clear: Subject<boolean> = new Subject<boolean>();
   @Input() save: Subject<boolean> = new Subject<boolean>();
+  @Input() simpleDraw: boolean = false;
   @Output() onSave: EventEmitter<ITransferData> = new EventEmitter<ITransferData>();
 
   public emotions: any = EMOTIONS;
   public currentEmotion: any = EMOTIONS.smile;
+  public isLoading: boolean = false;
 
   private _subscriptions: Subscription[] = [];
 
@@ -40,9 +43,9 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
   static _y: number;
   static _flag: boolean;
   static _dot_flag: boolean;
-  static _pathWidth: number = 20;
+  static _pathWidth: number = 5;
 
-  constructor() {
+  constructor(private _webWorker: WebWorkerService) {
   }
 
   public ngOnInit() {
@@ -51,8 +54,9 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
     }));
 
     this._subscriptions.push(this.save.subscribe(() => {
-      console.log('save');
-      this._save();
+      if (!this.isLoading) {
+        this._save();
+      }
     }));
   }
 
@@ -87,11 +91,33 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private _save() {
-    this.onSave.next({
-      binary: 101,
-      value: this.currentEmotion.value,
-      name: this.currentEmotion.name
+    this.isLoading = true;
+
+    const worker = this._webWorker.run(
+      this._processContext,
+      CanvasDrawComponent._context.getImageData(0, 0, CanvasDrawComponent._width, CanvasDrawComponent._height).data
+    );
+    let binary: string;
+
+    worker.then(result => {
+      binary = result;
+      this.isLoading = false;
+      this.onSave.next({
+        binary: binary,
+        value: this.currentEmotion.value,
+        name: this.currentEmotion.name
+      });
     });
+  }
+
+  private _processContext = (pixels: number[]): string => {
+    let binary: string = '';
+
+    for (let i = 0; i < pixels.length; i = i + 4) {
+      binary += pixels[i] > 0 ? '0' : '1';
+    }
+
+    return binary;
   }
 
   static _draw() {
@@ -102,7 +128,7 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
     CanvasDrawComponent._context.lineWidth = CanvasDrawComponent._y;
     CanvasDrawComponent._context.stroke();
     CanvasDrawComponent._context.closePath();
-    console.log('draw');
+
     // CanvasDrawComponent._context.beginPath();
     // CanvasDrawComponent._context.moveTo(CanvasDrawComponent._x, CanvasDrawComponent._y);
     // CanvasDrawComponent._context.fillStyle = 'black';
@@ -116,12 +142,9 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   static _erase() {
-    const m = confirm('Wyczyść płótno?');
-    if (m) {
-      CanvasDrawComponent._context.clearRect(0, 0, CanvasDrawComponent._width, CanvasDrawComponent._height);
-      CanvasDrawComponent._context.fillStyle = 'white';
-      CanvasDrawComponent._context.fillRect(0, 0, CanvasDrawComponent._canvas.width, CanvasDrawComponent._canvas.height);
-    }
+    CanvasDrawComponent._context.clearRect(0, 0, CanvasDrawComponent._width, CanvasDrawComponent._height);
+    CanvasDrawComponent._context.fillStyle = 'white';
+    CanvasDrawComponent._context.fillRect(0, 0, CanvasDrawComponent._canvas.width, CanvasDrawComponent._canvas.height);
   }
 
   static _find(res, e) {

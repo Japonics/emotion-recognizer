@@ -1,3 +1,9 @@
+<p class="return" [routerLink]="['']">
+  Menu
+</p>
+<p class="next" [routerLink]="['/tester']">
+  Rozpoznawanie
+</p>
 <div class="title">
   <h1>Trener</h1>
 </div>
@@ -28,8 +34,11 @@
         </div>
       </div>
       <div class="save-container">
-        <button>
-          Zapisz dane do pliku
+        <button (click)="saveInFile()">
+          Zapisz do pliku
+        </button>
+        <button (click)="saveTemporary()">
+          Zapisz tymczasowo
         </button>
       </div>
     </div>

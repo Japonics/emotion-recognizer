@@ -7,6 +7,8 @@ import {TesterOutletComponent} from './tester/tester-outlet/tester-outlet.compon
 import {TrainerOutletComponent} from './trainer/trainer-outlet/trainer-outlet.component';
 import {CanvasDrawComponent} from './general/canvas-draw/canvas-draw.component';
 import {Routing} from './routes';
+import {WebWorkerService} from 'angular2-web-worker';
+import {StorageService} from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import {Routing} from './routes';
     BrowserModule,
     RouterModule.forRoot(Routing)
   ],
-  providers: [],
+  providers: [
+    WebWorkerService,
+    StorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
