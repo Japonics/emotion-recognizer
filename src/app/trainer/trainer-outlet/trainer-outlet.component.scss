@@ -89,6 +89,21 @@
             }
           }
         }
+        .count {
+          width: 100%;
+          display: flex;
+          padding: 10px 0;
+          span {
+            font-size: 18px;
+            &:first-child {
+              color: #fff;
+            }
+            &:last-child {
+              padding-left: 10px;
+              color: $main-color;
+            }
+          }
+        }
         .save-container {
           display: flex;
           padding: 10px;

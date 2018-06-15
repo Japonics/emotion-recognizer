@@ -1,7 +1,7 @@
 <p class="return" [routerLink]="['']">
   Menu
 </p>
-<p class="next" [routerLink]="['/trainig']">
+<p class="next" [routerLink]="['/training']">
   Trening
 </p>
 <div class="title">
@@ -13,16 +13,38 @@
       [clear]="triggerClear"
       [save]="triggerSave"
       [simpleDraw]="true"
-      (onSave)="saveData($event)">
+      (onSave)="processData($event)">
     </app-canvas-draw>
   </div>
   <div class="panel">
     <div class="list-container">
-      <div class="save-container">
-        <button (click)="saveInFile()">
+      <div class="result">
+        <ng-container [ngSwitch]="currentEmoticon">
+          <div class="icon" *ngSwitchCase="'smile'">
+            <img src="../../../assets/emotions/smile.svg"/>
+          </div>
+          <div class="icon" *ngSwitchCase="'sad'">
+            <img src="../../../assets/emotions/sad.svg"/>
+          </div>
+          <div class="icon" *ngSwitchCase="'sceptic'">
+            <img src="../../../assets/emotions/sceptic.svg"/>
+          </div>
+          <div class="icon" *ngSwitchCase="'shocked'">
+            <img src="../../../assets/emotions/shocked.svg"/>
+          </div>
+          <div class="icon no-result" *ngSwitchDefault>
+            <p>Brak rezultatu</p>
+          </div>
+        </ng-container>
+      </div>
+      <div class="menu-container">
+        <button (click)="train()" [disabled]="notReadData">
+          Trenuj!
+        </button>
+        <button [disabled]="true">
           Wczytaj dane z pliku
         </button>
-        <button (click)="saveTemporary()">
+        <button (click)="readTemporary()">
           Wczytaj dane tymczasowe
         </button>
       </div>
@@ -31,8 +53,8 @@
 </div>
 <div class="buttons-container">
   <div class="button">
-    <button class="btn" (click)="emitSave()">
-      Zapisz
+    <button class="btn" (click)="emitSave()" [disabled]="noLearned">
+      Sprawdź
     </button>
   </div>
   <div class="button">
@@ -40,4 +62,7 @@
       Wyczyść płótno
     </button>
   </div>
+</div>
+<div *ngIf="isTraining" class="loader">
+  <h1>Trwa trenowanie...</h1>
 </div>

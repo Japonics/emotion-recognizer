@@ -18,6 +18,9 @@
   &:hover {
     background-color: $main-color-transparent;
   }
+  &:disabled {
+    opacity: 0.4;
+  }
 }
 
 @mixin header($font-size: 60px) {

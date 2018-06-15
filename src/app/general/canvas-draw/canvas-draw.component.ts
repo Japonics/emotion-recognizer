@@ -43,7 +43,7 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
   static _y: number;
   static _flag: boolean;
   static _dot_flag: boolean;
-  static _pathWidth: number = 5;
+  static _pathWidth: number = 3;
 
   constructor(private _webWorker: WebWorkerService) {
   }
@@ -97,48 +97,41 @@ export class CanvasDrawComponent implements OnInit, AfterViewInit, OnDestroy {
       this._processContext,
       CanvasDrawComponent._context.getImageData(0, 0, CanvasDrawComponent._width, CanvasDrawComponent._height).data
     );
-    let binary: string;
+    let binary: any;
 
     worker.then(result => {
       binary = result;
       this.isLoading = false;
       this.onSave.next({
-        binary: binary,
+        binarySet: binary,
         value: this.currentEmotion.value,
         name: this.currentEmotion.name
       });
     });
   }
 
-  private _processContext = (pixels: number[]): string => {
-    let binary: string = '';
+  private _processContext = (pixels: number[]): any => {
+    let binarySet: string = '';
 
     for (let i = 0; i < pixels.length; i = i + 4) {
-      binary += pixels[i] > 0 ? '0' : '1';
+      binarySet += pixels[i] > 0 ? '0' : '1';
     }
 
-    return binary;
+    return binarySet;
   }
 
   static _draw() {
-    CanvasDrawComponent._context.beginPath();
-    CanvasDrawComponent._context.moveTo(CanvasDrawComponent._prevX, CanvasDrawComponent._prevY);
-    CanvasDrawComponent._context.lineTo(CanvasDrawComponent._currX, CanvasDrawComponent._currY);
-    CanvasDrawComponent._context.strokeStyle = CanvasDrawComponent._x;
-    CanvasDrawComponent._context.lineWidth = CanvasDrawComponent._y;
-    CanvasDrawComponent._context.stroke();
-    CanvasDrawComponent._context.closePath();
 
-    // CanvasDrawComponent._context.beginPath();
-    // CanvasDrawComponent._context.moveTo(CanvasDrawComponent._x, CanvasDrawComponent._y);
-    // CanvasDrawComponent._context.fillStyle = 'black';
-    // CanvasDrawComponent._context.arc(
-    //   CanvasDrawComponent._x,
-    //   CanvasDrawComponent._y,
-    //   CanvasDrawComponent._pathWidth,
-    //   0,
-    //   360);
-    // CanvasDrawComponent._context.stroke();
+    CanvasDrawComponent._context.beginPath();
+    CanvasDrawComponent._context.arc(
+      CanvasDrawComponent._currX,
+      CanvasDrawComponent._currY,
+      CanvasDrawComponent._pathWidth,
+      0,
+      360);
+    CanvasDrawComponent._context.fillStyle = 'black';
+    CanvasDrawComponent._context.fill();
+    CanvasDrawComponent._context.stroke();
   }
 
   static _erase() {

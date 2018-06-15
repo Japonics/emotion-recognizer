@@ -1,7 +1,7 @@
 <p class="return" [routerLink]="['']">
   Menu
 </p>
-<p class="next" [routerLink]="['/tester']">
+<p class="next" (click)="goToTester()">
   Rozpoznawanie
 </p>
 <div class="title">
@@ -33,8 +33,12 @@
           </div>
         </div>
       </div>
+      <div class="count">
+        <span>Ilość rekordów: </span>
+        <span>{{dataRecords.length}}</span>
+      </div>
       <div class="save-container">
-        <button (click)="saveInFile()">
+        <button (click)="saveInFile()" [disabled]="true">
           Zapisz do pliku
         </button>
         <button (click)="saveTemporary()">

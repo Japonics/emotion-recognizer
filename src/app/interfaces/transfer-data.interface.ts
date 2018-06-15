@@ -1,5 +1,5 @@
 export interface ITransferData {
-  binary: string;
+  binarySet: string;
   value: number;
   name: string;
 }

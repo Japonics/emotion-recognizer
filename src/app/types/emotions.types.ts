@@ -1,18 +1,18 @@
 export const EMOTIONS: any = {
   smile: {
     name: 'smile',
-    value: 1
+    value: 0.25
   },
   sad: {
     name: 'sad',
-    value: 2
+    value: 0.5
   },
   sceptic: {
     name: 'sceptic',
-    value: 3
+    value: 0.75
   },
   shocked: {
     name: 'shocked',
-    value: 4
+    value: 1
   }
 };

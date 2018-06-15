@@ -25,7 +25,39 @@
       display: flex;
       justify-content: center;
       height: 100%;
-
+      .list-container {
+        width: 300px;
+        max-width: 300px;
+        .result {
+          .icon {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid $main-color-transparent;
+            img {
+              width: 100px;
+              height: 100px;
+            }
+            &.no-result {
+              width: 100%;
+              p {
+                font-size: 25px;
+                color: $main-color;
+              }
+            }
+          }
+        }
+        .menu-container {
+          display: flex;
+          flex-direction: column;
+          button {
+            @include button-std();
+            margin: 10px 0;
+          }
+        }
+      }
     }
   }
   .buttons-container {
@@ -38,6 +70,24 @@
       .btn {
         @include button-std();
       }
+    }
+  }
+  .loader {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $main-color-transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    h1 {
+      color: #fff;
+      font-size: 40px;
+
     }
   }
 }
