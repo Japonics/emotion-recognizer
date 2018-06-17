@@ -53,8 +53,8 @@ export class TesterOutletComponent {
     setTimeout(() => {
       for (let iteration = 0; iteration < 100; iteration++) {
         for (const record of this.learningData) {
-          console.log(this._perceptron.activate(record.binarySet.split('')));
-          this._perceptron.propagate(0.1, [record.value]);
+          console.log('iteration: ', this._perceptron.activate(record.binarySet.split('')));
+          this._perceptron.propagate(0.3, [record.value]);
         }
       }
     }, 1000);
@@ -68,22 +68,26 @@ export class TesterOutletComponent {
 
   public check(record: ITransferData) {
     const result = this._perceptron.activate(record.binarySet.split(''))[0];
-    console.log('result', result);
+    console.log('result: ', result);
 
     if (result <= EMOTIONS.smile.value + 0.125) {
       this.currentEmoticon = EMOTIONS.smile.name;
+      return;
     }
 
     if (result <= EMOTIONS.sad.value + 0.125) {
       this.currentEmoticon = EMOTIONS.sad.name;
+      return;
     }
 
     if (result <= EMOTIONS.sceptic.value + 0.125) {
       this.currentEmoticon = EMOTIONS.sceptic.name;
+      return;
     }
 
     if (result <= EMOTIONS.shocked.value) {
       this.currentEmoticon = EMOTIONS.shocked.name;
+      return;
     }
   }
 }
